@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout_owner :: layout (~{::body},'home')}">
+    <body>
+        
+        <style>
+            body{
+                background-color: white;
+            }
+        .btn{
+            width: 100%;
+            height: 30px;
+            outline: none !important;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            background-color: #152326 !important;
+        }
+        
+        input[type=time] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        input[type=date] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        </style>
+        <div style="display:flex"><h1 style="width:100%; text-align: center; margin-top: 10px; margin-bottom: 40px">Agregar nueva cita</h1></div>
+        <div style="display:flex;">
+            <div style="width:60%; margin:auto;">
+                <form th:object="${citas}" class="form-horizontal" id="add-owner-form" method="post">
+                    <div class="form-group has-feedback">
+
+                        <input
+                            th:replace="~{fragments/inputField :: input ('Fecha', 'fecha', 'date')}" />
+
+                        <input
+                            th:replace="~{fragments/inputField :: input ('Hora', 'hora', 'time')}" />
+                        
+                        Especialidad
+                        <select th:field="*{especialidad}">
+                            <span th:each="especialidad : ${especialidades}">
+                                <option  th:value="${especialidad.id}" th:text="${especialidad.name}"/>
+                            </span>
+                        </select>
+                        
+                        <br>
+                        
+                        Mascota
+                        <select th:field="*{mascota}">
+                            <span th:each="mascota : ${idowner.pets}">
+                                <option  th:value="${mascota.id}" th:text="${mascota.name}"/>
+                            </span>
+                        </select>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-7">
+                            <button id="btn"
+                                    th:with="text=Cita"
+                                    class="btn" type="submit" th:text="${text}">Add Cita</button>
+                        </div>
+                    </div>
+                </form>
+                <table style="margin:auto; width:80%" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th th:text="Fecha" style="width: 250px;"></th>
+                                <th th:text="Hora" style="width: 250px;"></th>
+                                <th th:text="Mascota" style="width: 150px;"></th>
+                                <th th:text="Especialidad" style="width: 200px;"></th>
+                                <th th:text="#{confirmacion}" style="width: 150px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="i : ${allCitas}">
+                                <td th:text="${i.fecha}"/>
+                                <td th:text="${i.hora}"/>
+                                <td th:text="${i.mascota}"/>
+                                <td th:text="${i.especialidad}"/>
+                                <td th:text="${i.confirmacion}" style="width: 150px; color: red;"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+            </div>         
+        </div>
+    </body>
+</html>

@@ -1,0 +1,222 @@
+<html xmlns:th="http://www.thymeleaf.org"
+<<<<<<< HEAD
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+=======
+  th:replace="~{fragments/layout_owner :: layout (~{::body},'owners')}">
+    <body class="font">
+    <style>
+        .font{
+            background-color: white;
+        }
+            
+        .style-img{
+            width:100%;
+            height:35%;
+            margin-left: 17%;
+        }
+        
+        .btn{
+            width: 100%;
+            height: 30px;
+            outline: none !important;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            background-color: #152326 !important;
+        }
+        
+        input[type=text] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        input[type=number] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        input[type=email] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        input[type=password] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+        }
+        input[type=time] {
+            border: 3px solid #152326;
+            border-radius: 4px;
+            background-color: #8C6E35;
+            color: white;
+            margin:auto;
+        }
+        
+    </style>
+    
+    <div style="display:flex; width: 100%; height: 80vh;" >
+        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-5" style="margin:auto;">
+            <div style="display:flex"><h1 style="width:100%; text-align: center; margin-top: 20px; margin-left: 50px" >Información Owner</h1></div> 
+            <br>
+            <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post" enctype="multipart/form-data">
+              <div class="form-group has-feedback">
+                <div style="width: 100%;">
+                    <div style="margin:auto; width:170px;">
+                        <img class="style-img" th:src="@{${owner.imagen} == '' ? '/resources/images/placeholder.png':${owner.imagen}}" alt="myImage"/>
+                        <input 
+                            type="file" value="Seleccionar archivo" name="file" style="margin-left: 38px;margin-top: 38px;"/><br>
+                    </div>
+                </div>
+                  
+                <input
+                  th:replace="~{fragments/inputField :: input (#{fn}, 'firstName', 'text')}" />
+                <input
+                  th:replace="~{fragments/inputField :: input (#{ln}, 'lastName', 'text')}" />
+                <input
+                  th:replace="~{fragments/inputField :: input (#{ad}, 'address', 'text')}" />
+                <input
+                  th:replace="~{fragments/inputField :: input (#{cd}, 'city', 'text')}" />
+                <input
+                  th:replace="~{fragments/inputField :: input (#{tf}, 'telephone', 'text')}" />
+                <input
+                    th:replace="~{fragments/inputField :: input ('Email', 'user.email', 'email')}" />
+                <input
+                    th:replace="~{fragments/inputField :: input ('Contraseña', 'user.password', 'password')}" />
+
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button id="btn"
+                    th:with="text=${owner['new']} ? #{ao} : #{uo}" class="btn" type="submit" th:text="${text}">Add Owner</button>
+                </div>
+              </div>
+
+                <div id='map' style='width: 700px; height: 500px;'>
+                      <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+                      <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+                      <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+                      <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+                      <script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js'></script>
+                      <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />
+                      <style>
+                      #geocoder-container > div {
+                          min-width:100%;
+                          /*margin-left:25%;*/
+                      }
+                      #longitud, #latitud{
+                          visibility: hidden;
+                      }
+                      .glyphicon{
+                          visibility: hidden;
+                      }
+                      </style>
+                      <div id='map'></div>
+
+                      <script>
+                          mapboxgl.accessToken = 'pk.eyJ1IjoiZWRkcmFyaSIsImEiOiJjanJhd3ZuemMwd2M4NDRwbmg4YTF3aGtkIn0.KfY8ewzvjmJaJa-WgHILIA';
+                          var coordinates = document.getElementById('coordinates');
+
+                          var updateOrNew = document.getElementById("btn").textContent;
+
+                          if(updateOrNew=="Actualizar Dueño"){
+                              lat = document.getElementById('latitud').value;
+                              long = document.getElementById('longitud').value;
+                              var map = new mapboxgl.Map({
+                                  container: 'map',
+                                  style: 'mapbox://styles/mapbox/streets-v9',
+                                  center: [long, lat],
+                                  zoom: 16
+                              });
+                              var geojson = {
+                                  "type": "FeatureCollection",
+                                  "features": [{
+                                      "type": "Feature",
+                                      "geometry": {
+                                          "type": "Point",
+                                          "coordinates": [long, lat]
+                                      }
+                                  }]
+                              }
+                          }else{
+                              var map = new mapboxgl.Map({
+                                  container: 'map',
+                                  style: 'mapbox://styles/mapbox/streets-v9',
+                                  center: [-102, 24],
+                                  zoom: 4
+                              });
+                              var geojson = {
+                                  "type": "FeatureCollection",
+                                  "features": [{
+                                      "type": "Feature",
+                                      "geometry": {
+                                          "type": "Point",
+                                          "coordinates": [0, 0]
+                                      }
+                                  }]
+                              }
+                          }
+
+                      var canvas = map.getCanvasContainer();
+
+                      var geocoder = new MapboxGeocoder({
+                          accessToken: mapboxgl.accessToken
+                      });
+
+                      map.addControl(geocoder);
+
+                      map.addControl(new mapboxgl.NavigationControl());
+
+                      function onMove(e) {
+                          var coords = e.lngLat;
+
+                          // Set a UI indicator for dragging.
+                          canvas.style.cursor = 'grabbing';
+
+                          // Update the Point feature in `geojson` coordinates
+                          // and call setData to the source layer `point` on it.
+                          geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+                          map.getSource('point').setData(geojson);
+                      }
+
+                      function onUp(e) {
+                          var coords = e.lngLat;
+
+                          // Print the coordinates of where the point had
+                          // finished being dragged to on the map.
+                          //coordinates.style.display = 'block';
+                          //coordinates.innerHTML = 'Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat;
+                          canvas.style.cursor = '';
+>>>>>>> ec7065e6b355e5129d0e154f9ece3eb88a0c061e
+
+<body>
+
+  <h2>Owner</h2>
+  <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post">
+    <div class="form-group has-feedback">
+      <input
+        th:replace="~{fragments/inputField :: input ('First Name', 'firstName', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Last Name', 'lastName', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Address', 'address', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('City', 'city', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Telephone', 'telephone', 'text')}" />
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button
+          th:with="text=${owner['new']} ? 'Add Owner' : 'Update Owner'"
+          class="btn btn-default" type="submit" th:text="${text}">Add
+          Owner</button>
+      </div>
+    </div>
+  </form>
+</body>
+</html>

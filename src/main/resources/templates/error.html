@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'error')}">
+
+    <body class="font">
+      <style>
+        .font{
+            background-color: white;
+        }
+      </style>
+      <div class="container" style="text-align: center; align-items: center;">
+        <h2>Página no encontrada</h2>
+        <img style="width: 40%;" src="../static/resources/images/error.png" th:src="@{/resources/images/error.png}"/>
+        <p th:text="${message}">La página esta sufriendo ansiedad, por favor vuelva a intentarlo</p>
+      </div>
+    
+  </body>
+
+</html>

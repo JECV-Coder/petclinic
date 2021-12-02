@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+<body>
+<<<<<<< HEAD
+
+  <h2>Find Owners</h2>
+
+  <form th:object="${owner}" th:action="@{/owners}" method="get"
+    class="form-horizontal" id="search-owner-form">
+    <div class="form-group">
+      <div class="control-group" id="lastNameGroup">
+        <label class="col-sm-2 control-label">Last name </label>
+        <div class="col-sm-10">
+          <input class="form-control" th:field="*{lastName}" size="30"
+            maxlength="80" /> <span class="help-inline"><div
+              th:if="${#fields.hasAnyErrors()}">
+              <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+            </div></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Find
+          Owner</button>
+      </div>
+    </div>
+
+  </form>
+
+  <br />
+  <a class="btn btn-default" th:href="@{/owners/new}">Add Owner</a>
+
+=======
+    <style>
+     .font{
+                background-color: white;
+            }
+            .btn{
+                margin-bottom: 10px;
+                height: 30px;
+                outline: none !important;
+                border: none;
+                border-radius: 4px;
+                color: white;
+                background-color: #152326 !important;
+            }
+            input[type=text] {
+                border: 3px solid #152326;
+                border-radius: 4px;
+                background-color: #8C6E35;
+                color: white;
+                height: 70%;
+            }
+            h3{
+                text-align: center;
+            }
+            .input{
+                width: 100%;
+                height: 35px;
+                border: 3px solid #152326;
+                border-radius: 4px;
+                background-color: #8C6E35;
+                color: white;   
+            }
+    </style>
+  <div class="container" style="margin-top:20px;">
+      <h2 style="text-align:center">Buscar owner</h2>
+    <div class="row">
+        <form th:object="${owner}" th:action="@{/admin/owners}" method="get"
+          class="form-horizontal" id="search-owner-form">
+            <div  style="display:flex; margin-top: 40px; flex-wrap: wrap">
+                <h3>Ingrese el nombre del owner a buscar </h3>
+              <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                  <input class="input" th:field="*{lastName}" size="20"
+                  maxlength="80" /> <span class="help-inline"><div
+                    th:if="${#fields.hasAnyErrors()}">
+                    <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+                  </div></span>
+              </div>
+              <button th:text="#{fo}" type="submit" class="btn">Find Owner</button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+      <div>
+          <div class="col-xs-0 col-sm-0 col-md-10 col-lg-10"></div>
+          <a class="btn" th:text="#{ao}" th:href="@{/owner_signup}">Add Owner</a>
+      </div>
+    </div>
+>>>>>>> ec7065e6b355e5129d0e154f9ece3eb88a0c061e
+</body>
+</html>

@@ -1,0 +1,59 @@
+    <!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<<<<<<< HEAD
+
+  <body>
+
+    <h2 th:text="#{welcome}">Welcome</h2>
+    <div class="row">
+        <div class="col-md-12">
+          <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
+        </div>
+    </div>
+
+  </body>
+
+=======
+    <body>   
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            *{
+                overflow-y: none;
+            }
+            .font{
+                background-color: white;
+            }
+            
+            .style-title{
+                width: auto;
+                z-index: 0;
+                margin-top: 20px;
+                position: absolute;
+                padding:20px;
+                background-color: #152326;
+                color:#ffffff;
+                font-size: 30px;    
+            }
+            
+            .title-soft{
+                color:#ffffff;
+                text-shadow: 3px 2px #8C6E35; 
+                font-size: 30px;
+            }
+            
+            .img-welcome{
+                text-align: center;
+                z-index: -1;
+                position:asolute;
+                top:0px;
+                width: 100%;
+                height: 92vh;
+            }
+        </style>
+        <h1 class="style-title">Bienvenido a <span class="title-soft">HEALTHY PET</span></h1>
+        <h3 class="style-title" style="margin-top:110px">Admin</h3>
+        <img align="right" src="../static/resources/images/pets.png" th:src="@{/resources/images/dog.jpg}"/>
+    </body> 
+>>>>>>> ec7065e6b355e5129d0e154f9ece3eb88a0c061e
+</html>
